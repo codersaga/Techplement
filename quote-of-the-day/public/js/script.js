@@ -3,7 +3,12 @@
 async function fetchQuote(author = '') {
     try {
         // Build the query string with or without the author
-        const response = await fetch(`/quote${author ? `?author=${encodeURIComponent(author)}` : ''}`);
+        const response = await fetch(`/api/quote${author ? `?author=${encodeURIComponent(author)}` : ''}`);
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
         const data = await response.json();
       
         // Debugging: Log the data to ensure the structure is correct
